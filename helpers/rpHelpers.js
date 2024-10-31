@@ -18,6 +18,7 @@ async function startLaunch(config, suiteTitle) {
 			endpoint: config.endpoint,
 			project: config.projectName,
 			debug: config.debug,
+			restClientConfig: config.restClientConfig
 		});
 
 		logToFile(`Creating new RP Client: ${JSON.stringify(rpClient, null, 2)}`);
@@ -58,9 +59,8 @@ async function getRPLink(config, launchId) {
 			{ Authorization: `Bearer ${config.token}` },
 		);
 		const launch = res.data.content.filter((item) => item.uuid === launchId);
-		return `${config.endpoint.split('api')[0]}ui/#${
-			config.projectName
-		}/launches/all/${launch[0].id}`;
+		return `${config.endpoint.split('api')[0]}ui/#${config.projectName
+			}/launches/all/${launch[0].id}`;
 	} catch (e) {
 		console.log(e);
 	}
